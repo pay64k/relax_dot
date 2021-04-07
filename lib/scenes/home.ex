@@ -74,24 +74,7 @@ defmodule RelaxDot.Scene.Home do
           end
       end
 
-      Logger.info("new_data: #{inspect new_data}")
-
-    # {next_motion, rem_motions} =
-    #   case {new_x >= state.width, new_y >= state.height} do
-    #     {false, false} ->
-    #       {state.active_motion, state.rem_motions}
-    #     {true, false} ->
-    #       [n | r] = state.rem_motions
-    #       {n, r}
-    #   end
-
-    # {new_x, new_y, next_motion, rem_motions} =
-    # if new_x >= state.width or new_y >= state.height do
-    #   [n | r] = state.rem_motions
-    #   {state.width - @radius, state.height - @radius, n, r}
-    # else
-    #   {new_x, new_y, state.active_motion, state.rem_motions}
-    # end
+    Logger.info("new_data: #{inspect new_data}")
 
     graph =
       @graph
