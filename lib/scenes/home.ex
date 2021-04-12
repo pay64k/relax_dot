@@ -8,17 +8,17 @@ defmodule RelaxDot.Scene.Home do
   import Scenic.Primitives
 
   @radius 10
-  @move_interval 200
-  @clear_interval 100
-  @divisions 10
+  @move_interval 1000
+  @clear_interval 200
+  @divisions 15
 
   @bg_color :white
   @dot_color :black
 
-  @motions [:left_to_right, :diagonal_1, :left_to_right, :diagonal_2]
+  @motions [:left_to_right, :right_to_left, :left_to_right, :right_to_left]
 
   @graph Graph.build(clear_color: @bg_color)
-         |> circle(@radius, id: :dot, fill: {:color, @dot_color}, translate: {@radius, @radius})
+         |> circle(@radius, id: :dot, fill: {:color, @dot_color}, translate: {@radius, 360})
 
   def init(_, opts) do
     {:ok, %ViewPort.Status{size: {width, height}}} = ViewPort.info(opts[:viewport])
@@ -35,7 +35,7 @@ defmodule RelaxDot.Scene.Home do
        width: width,
        height: height,
        x: @radius,
-       y: @radius,
+       y: div(height,2),
        active_motion: active_motion,
        rem_motions: rem_motions
      }, push: @graph}
@@ -55,6 +55,14 @@ defmodule RelaxDot.Scene.Home do
           else
             [n | r] = state.rem_motions
             {state.width - @radius, y, n, r}
+          end
+
+        :right_to_left ->
+          if x - step_x >= 0 do
+            {x - step_x, y, state.active_motion, state.rem_motions}
+          else
+            [n | r] = state.rem_motions
+            {@radius, y, n, r}
           end
 
         :diagonal_1 ->

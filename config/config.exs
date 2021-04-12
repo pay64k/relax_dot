@@ -5,7 +5,7 @@ use Mix.Config
 # Configure the main viewport for the Scenic application
 config :relax_dot, :viewport, %{
   name: :main_viewport,
-  size: {700, 600},
+  size: {1152, 720},
   default_scene: {RelaxDot.Scene.Home, nil},
   drivers: [
     %{
